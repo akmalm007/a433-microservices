@@ -10,7 +10,7 @@ sleep 10
 docker tag item-app:v1 akmalm007/proyek-pertama-docker:v1
 sleep 10
 #docker login digunakan untuk login ke dalam docker hub dengan terminal
-docker login -u akmalm007 -p CHIPer007
+echo $PASSWORD_DOCKER_HUB | docker login -u akmalm007 --password-stdin 
 sleep 10
 #docker push perintah untuk melakukan push image ke repository yang kita buat 
 docker push akmalm007/proyek-pertama-docker:v1
