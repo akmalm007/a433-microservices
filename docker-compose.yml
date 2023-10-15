@@ -1,0 +1,37 @@
+#version di sini adalah versi dari schema compose yang ingin kita gunakan
+version: "3.7"
+
+#service adalah container tempat untuk menjalan container di sini ada dua yaitu item-app dan item-db 
+services:
+  #item-app adalah nama dari container yang akan dijalankan nantinya
+  item-app:
+    #image yaitu mengambil image yang ada di docker hub di sini menggunakan image dari repo yang sudah dibuat sebelumnya
+    image: akmalm007/proyek-pertama-docker:v1
+    #command adalah untuk menjalankan perintah terminal di sini menggunakan shell untuk menginstall depedencies dan menjalankan aplikasi
+    command: sh -c "npm install --production --unsafe-perm && npm start"
+    #pors ini adalah untuk mapping di port mana aplikasi bisa diakses kasus di sini adalah port 80
+    ports:
+      - 80:80
+    #working_dir sama seperti docker file yaitu direktori aplikasi akan dijalankan 
+    working_dir: /app
+    #volumes digunakan untuk memakai penyimpanan dalam aplikasi
+    volumes:
+      - ./:/app
+    #perintah ini adalaah docker policy yang diterapkan pada versi 3 dengan kondisi jika gagal dan jumlah percobaan sampai dengan 3
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+  #item-db adalah container yang akan menjalankan database yaitu mongo 
+  item-db:
+    #perintah utnuk mengambil image mongo dari docker hub
+    image: mongo:3 
+    #volumes untuk menggunakan volumes yang akan dibuat di container
+    volumes:
+      - app-db:/data/db
+
+#perintah untuk membuat volume dengan docker compose 
+volumes: 
+  app-db:
