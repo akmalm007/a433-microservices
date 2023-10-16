@@ -6,17 +6,13 @@ services:
   #item-app adalah nama dari container yang akan dijalankan nantinya
   item-app:
     #image yaitu mengambil image yang ada di docker hub di sini menggunakan image dari repo yang sudah dibuat sebelumnya
-    image: akmalm007/proyek-pertama-docker:v1
+    image: ghcr.io/akmalm007/item-app:v1
     #command adalah untuk menjalankan perintah terminal di sini menggunakan shell untuk menginstall depedencies dan menjalankan aplikasi
-    command: sh -c "npm install --production --unsafe-perm && npm start"
     #pors ini adalah untuk mapping di port mana aplikasi bisa diakses kasus di sini adalah port 80
     ports:
-      - 80:80
+      - 80:8080
     #working_dir sama seperti docker file yaitu direktori aplikasi akan dijalankan 
-    working_dir: /app
     #volumes digunakan untuk memakai penyimpanan dalam aplikasi
-    volumes:
-      - ./:/app
     #perintah ini adalaah docker policy yang diterapkan pada versi 3 dengan kondisi jika gagal dan jumlah percobaan sampai dengan 3
     deploy:
       restart_policy:

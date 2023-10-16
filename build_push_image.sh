@@ -7,10 +7,10 @@ sleep 10
 docker image ls 
 sleep 10
 #docker tag untuk merubah nama image yang kita punya sesuai dengan repository yang ada di docker hub
-docker tag item-app:v1 akmalm007/proyek-pertama-docker:v1
+docker tag item-app:v1 ghcr.io/akmalm007/item-app:v1 
 sleep 10
 #docker login digunakan untuk login ke dalam docker hub dengan terminal
-echo $PASSWORD_DOCKER_HUB | docker login -u akmalm007 --password-stdin 
+echo $CR_PAT | docker login ghcr.io -u akmalm007 --password-stdin 
 sleep 10
 #docker push perintah untuk melakukan push image ke repository yang kita buat 
-docker push akmalm007/proyek-pertama-docker:v1
+docker push ghcr.io/akmalm007/item-app:v1
