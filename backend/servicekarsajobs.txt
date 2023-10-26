@@ -1,0 +1,17 @@
+Name:                     karsajobs
+Namespace:                default
+Labels:                   app=karsajobs
+Annotations:              <none>
+Selector:                 app=karsajobs
+Type:                     NodePort
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.99.241.66
+IPs:                      10.99.241.66
+Port:                     <unset>  8080/TCP
+TargetPort:               8080/TCP
+NodePort:                 <unset>  31222/TCP
+Endpoints:                <none>
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>

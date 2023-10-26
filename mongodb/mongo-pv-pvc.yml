@@ -23,6 +23,6 @@ spec:
   storageClassName: manual 
   accessModes: 
   - ReadWriteOnce
-  reqsources:
+  resources:
     requests:
       storage: 1Gi

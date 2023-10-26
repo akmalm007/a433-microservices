@@ -23,7 +23,14 @@ spec:
             - name: APP_PORT
               value: "8080" 
             - name: MONGO_HOST
-              value: "mongodb"
+              value: "mongo"
             - name: MONGO_USER
               valueFrom:
+                secretKeyRef:
+                  name: mongo-credentials
+                  value: MONGO_ROOT_USERNAME
             - name: MONGO_PASS
+              valueFrom: 
+                secretKeyRef:
+                  name: mongo-credentials
+                  value: MONGO_ROOT_PASSWORD

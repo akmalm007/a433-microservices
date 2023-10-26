@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: StatefulSet 
+metada:
+  name: mongo
+  labels: 
+    app: mongo 
+spec: 
+  selector: 
+    matchLabels:
+      app: mongo
+      tier: backend
+    servicename: mongo
+    replicas: 2
+    template: 
+      metada:
+        labels:
+          app: mongo
+          tier: backend 
+        spec: 
+          containers:
+            - image: mongo:4.4.3
+              name: mongo 
+              env:
+                - name: MONGO_INITDB_ROOT_USERNAME_FILE
+                  value: /etc/mongo-credentials/MONGO_ROOT_USERNAME
+                - name: MONGO_INITDB_ROOT_PASSWORD_FILE
+                  value: /etc/mongo-crednetials/MONGO_ROOT_PASSWORD
+              ports:
+                - containerPort: 27017  
+                  name: mongo 
+              volumesMounts:
+                - name: mongo-pv 
+                  value: /data/db
+                - name: mongo-config-map 
+                  value: /config
+                - name: mongo-secret 
+                  value: /etc/mongo-credentials 
+          volumes:
+            - name: mongo-persistent-storage
+              persistentVolumeClaim: 
+                claimName: mongo-pv-claim 
+            - name: mongo-config-map
+              configmap: 
+                name: mongo-config 
+                items: 
+                  - key: mongo.conf 
+                    value: mongo.conf 
+            - name: mongo-credentials 
+              secret:
+                secretName: mongo-credentials
