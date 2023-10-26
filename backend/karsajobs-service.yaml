@@ -6,9 +6,8 @@ metadata:
   name: karsajobs
 spec:
   ports:
-    - ports: 8080
+    - port: 8080
       targetPort: 8080
-      nodePort: 31000
   selector:
     app: karsajobs
   type: NodePort
