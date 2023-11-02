@@ -1,9 +1,13 @@
+#menggunakan api versi 1 
 apiVersion: v1
+#jenis service yang akan di apply
 kind: Service
+#nama dari service yang akan diapply yaitu karsajobs-ui
 metadata:
   name: karsajobs-ui
   labels:
     app: karsajobs-ui
+#port yang akan digunakan pada pod
 spec:
   ports:
     - port: 8000

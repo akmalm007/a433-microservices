@@ -1,9 +1,13 @@
+#Menggunakan Api version 1
 apiVersion: v1
+#Type dari manifest yang akan di apply
 kind: Service
+#memberi nama dari service yang akan dideploy
 metadata:
   labels:
     app: karsajobs
   name: karsajobs
+#spesifikasi dari service yang akan dijalankan seperti port dan tipe port 
 spec:
   ports:
     - port: 8080

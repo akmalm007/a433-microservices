@@ -1,22 +1,31 @@
+#menggunakana api versi 1
 apiVersion: apps/v1
+#Jenis object yang akan digunakan yaitu deployment
 kind: Deployment
+#Nama dari object yang akan diapply
 metadata:
   name: karsajobs-ui
   labels: 
     app: karsajobs-ui 
+#spesifikasi dari pod yang akan didefinisikan 
 spec:
+  #jumlah pod yang digunakan
   replicas: 1
+  #selector yang dipilih oleh di object
   selector:
     matchLabels:
       app: karsajobs-ui
+  #metada yang untuk objeck yang akan didefinisikan
   template:
     metadata:
       labels:
         app: karsajobs-ui
+    #spesifikasi dari container yang akan di apply
     spec:
       containers:
         - name: karsajobs-ui
           image: ghcr.io/akmalm007/karsajobs-ui:latest
+          #set port untuk akses dan enviroment untuk akses backed aplikasi 
           ports:
             - containerPort: 8000
           env:

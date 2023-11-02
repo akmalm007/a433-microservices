@@ -1,28 +1,39 @@
+#api version yang dipakai adalah 1
 apiVersion: v1
+#object manifest ini akan meminta volume untuk database
 kind: PersistentVolume
+#memberi nama pada object PV
 metadata:
   name: mongo-pv 
   labels: 
     type: local
+#spesifikasi dari volume yang akan dibuat 
 spec: 
   storageClassName: manual
+  #kapasitas dari volume yang dibuat 
   capacity: 
     storage: 1Gi
+  #bagaimaan volume akan diakses yaitu membaca dan menulis pada satu pod
   accessModes:
   - ReadWriteOnce
+  #lokasi dari volume yang akan dipakai
   hostPath:
     path: "/data/db"
 ---
 apiVersion: v1
+#object yang akan mengklaim volume yang akan dipakai
 kind: PersistentVolumeClaim
+#nama dari object yang akan dibuat 
 metadata: 
   name: mongo-pv-claim
   labels: 
     app: mongo 
 spec:
+  #bagaimana volume akan diakses
   storageClassName: manual 
   accessModes: 
   - ReadWriteOnce
   resources:
     requests:
+      #ukuran dari volume
       storage: 1Gi

@@ -1,9 +1,13 @@
+#api versi yang digunakan
 apiVersion: v1
+#mendefinisikan service untuk mongo
 kind: Service
+#nama dari object service yang akan dibuat 
 metadata:
   name: mongo
   labels:
     app: mongo
+#spesifikasi dari mongo seperti Port dan Protocol 
 spec:
   ports:
     - port: 27017

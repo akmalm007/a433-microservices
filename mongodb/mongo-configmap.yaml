@@ -1,8 +1,12 @@
+#versi api yang akan digunakan yaitu 1
 apiVersion: v1
+#tipe dari object yang akan diapply yaiut config map
 kind: ConfigMap
+#nama dari metada yang akan digunakan 
 metadata:
   name: mongo-conf
 data:
+  #lokasi storage yang akan digunakan 
   mongo.conf: |
     storage: 
       dbPath: /data/db

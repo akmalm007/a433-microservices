@@ -1,11 +1,17 @@
+#Api yang yang digunakan adalah versi 1
 apiVersion: apps/v1
+#Jenis object yang akan dilakukan adalah deployment
 kind: Deployment
+#Memberi metada pada object yang akan di apply 
 metadata:
   name: karsajobs
   labels: 
     app: karsajobs
+#Spesifikasi dari pod yang akan diluncuurkan 
 spec:
+  #Jumlah pod yang akan diluncurkan 
   replicas: 1
+  #memilih selector yaitu karsajobs
   selector:
     matchLabels:
       app: karsajobs
@@ -14,6 +20,7 @@ spec:
       labels:
         app: karsajobs
     spec:
+      #Mendefinisikan container yang akan dilucnurkan seperti enviromentnya port dan Database  
       containers:
         - name: karsajobs
           image: ghcr.io/akmalm007/karsajobs:latest
