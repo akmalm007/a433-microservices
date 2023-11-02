@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        name: karsajobs
+        app: karsajobs
     spec:
       containers:
         - name: karsajobs
@@ -28,9 +28,9 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: mongo-credentials
-                  value: MONGO_ROOT_USERNAME
+                  key: MONGO_ROOT_USERNAME
             - name: MONGO_PASS
               valueFrom: 
                 secretKeyRef:
                   name: mongo-credentials
-                  value: MONGO_ROOT_PASSWORD
+                  key: MONGO_ROOT_PASSWORD

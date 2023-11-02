@@ -9,7 +9,7 @@ spec:
     matchLabels:
       app: mongo
       tier: backend
-    servicename: mongo
+    serviceName: mongo
     replicas: 2
     template: 
       metada:

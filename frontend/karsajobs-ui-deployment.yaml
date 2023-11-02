@@ -2,7 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: karsajobs-ui
-  labels: karsajobs-ui
+  labels: 
+    app: karsajobs-ui 
 spec:
   replicas: 1
   selector:
@@ -11,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        name: karsajobs-ui
+        app: karsajobs-ui
     spec:
       containers:
         - name: karsajobs-ui
@@ -20,4 +21,4 @@ spec:
             - containerPort: 8000
           env:
             - name: VUE_APP_BACKEND
-              value:
+              value: 10.99.241.66:31222
