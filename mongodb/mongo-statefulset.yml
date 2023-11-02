@@ -40,8 +40,8 @@ spec:
           persistentVolumeClaim: 
             claimName: mongo-pv-claim 
         - name: mongo-config-map
-          configmap: 
-            name: mongo-config
+          configMap: 
+            name: mongo-conf
             items: 
               - key: mongo.conf 
                 path: mongo.conf 

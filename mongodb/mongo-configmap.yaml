@@ -5,4 +5,4 @@ metadata:
 data:
   mongo.conf: |
     storage: 
-      dbPath:/data/db
+      dbPath: /data/db
