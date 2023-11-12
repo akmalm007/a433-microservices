@@ -1,0 +1,75 @@
+version: "3.7"
+services:
+  #Di docker compose definisikan 3 service yaitu rabbitmq, order-service, dan shipping-service
+  rabbitmq:
+    #menggunakan rabbitmq imaage dari docker hub
+    image: rabbitmq:3.8-management-alpine
+    #nama dari container yang dijalankan
+    container_name: "rabbitmq_container"
+    #port yang digunakan untuk mengakses rabbitmq
+    ports:
+      - 5673:5672
+      - 15673:15672
+    #volumes untuk menyimpan data dan log pada rabbitmq
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    #networks yang digunakan pada service ini
+    networks:
+      - rabbitmq_network
+  #membuat order-service
+  order-service:
+    #pull image dari github container registry
+    image: ghcr.io/akmalm007/order-service:latest
+    #Mapping port untuk order-service
+    ports:
+      - 3000:3000
+    #bind volumes ke workdir /src
+    volumes:
+      - .:/src
+    #memastikan bahwa service rabbitmq berjalan terlebih dahulu sebelum service ini
+    depends_on:
+      - "rabbitmq"
+    #menjalankan bash script di container untuk memastikan bahwa rabbitmq telah berjalan sebelum menjalankan service ini
+    command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- node index.js'
+    #set env variable
+    environment:
+      #Port pada container
+      PORT: 3000
+      #Node env dijalankan adalh production
+      NODE_ENV: production
+      #URL untuk menjalankan service pada rabbitmq
+      AMQP_URL: amqp://guest:guest@rabbitmq:5672
+    #menggunakan network yang sama dengan rabbitmq
+    networks:
+      - rabbitmq_network
+  #membuat shipping-service
+  shipping-service:
+    #pull image dari github container registry
+    image: ghcr.io/akmalm007/shipping-service:latest
+    #Mapping port untuk order-service
+    ports:
+      - 3001:3001
+    #bind volumes ke workdir /src
+    volumes:
+      - .:/src
+    #memastikan bahwa service rabbitmq berjalan terlebih dahulu sebelum service ini
+    depends_on:
+      - "rabbitmq"
+    #menjalankan bash script di container untuk memastikan bahwa rabbitmq telah berjalan sebelum menjalankan service ini
+    #set env variable
+    environment:
+      #Port pada container
+      PORT: 3001
+      #Node env dijalankan adalh production
+      NODE_ENV: production
+      #URL untuk menjalankan service pada rabbitmq
+      AMQP_URL: amqp://guest:guest@rabbitmq:5672
+    #menggunakan network yang sama dengan rabbitmq
+    networks:
+      - rabbitmq_network
+#Membuat network baru untuk stack docker compose ini
+networks:
+  #bernama rabbitmq_network dengan tipe bridge agar container bisa saling berkomunikasi
+  rabbitmq_network:
+    driver: bridge
