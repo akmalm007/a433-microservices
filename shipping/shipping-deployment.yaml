@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shipping
+  labels:
+    app: shipping
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shipping
+  template:
+    metadata:
+      labels:
+        app: shipping
+    spec:
+      containers:
+        - name: shipping-service
+          image: ghcr.io/akmalm007/shipping-service:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+            - name: AMQP_URL
+              value: "amqp://localhost:5672"
