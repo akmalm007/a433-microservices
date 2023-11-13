@@ -25,8 +25,6 @@ services:
     ports:
       - 3000:3000
     #bind volumes ke workdir /src
-    volumes:
-      - .:/src
     #memastikan bahwa service rabbitmq berjalan terlebih dahulu sebelum service ini
     depends_on:
       - "rabbitmq"
@@ -50,13 +48,11 @@ services:
     #Mapping port untuk order-service
     ports:
       - 3001:3001
-    #bind volumes ke workdir /src
-    volumes:
-      - .:/src
     #memastikan bahwa service rabbitmq berjalan terlebih dahulu sebelum service ini
     depends_on:
       - "rabbitmq"
     #menjalankan bash script di container untuk memastikan bahwa rabbitmq telah berjalan sebelum menjalankan service ini
+    command: sh -c '/bin/wait-for-it.sh rabbitmq:5672 --timeout=30 -- node index.js'
     #set env variable
     environment:
       #Port pada container
